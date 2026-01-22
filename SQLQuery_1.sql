@@ -147,8 +147,3 @@
 
 -- SELECT * FROM customers ORDER BY first_name DESC;
 
-SELECT TOP 5 * FROM customers;
-
-
-
-
