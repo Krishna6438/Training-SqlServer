@@ -1,0 +1,56 @@
+
+--SELECT NEWID();  -- generate a random GUID
+
+select * from sysobjects  -- It returns information about database objects in the current database.
+
+select distinct xtype from sysobjects
+-- It returns all unique object types present in the current database.
+-- xtype is a code that tells what type of database object it is.
+
+select * from sysobjects where xtype = 'U'
+-- It returns all user-defined tables in the current database.
+
+-- to diagnois it tools -> SQL Server
+
+select * from sysobjects
+
+select * from sysobjects group by xtype 
+-- whatever is coming after group by that should only be there in SELECT statement
+
+
+select xtype, count(xtype) from sysobjects group by xtype 
+
+select name, xtype, count(xtype) from sysobjects group by xtype.name
+
+select 
+	xtype, 
+	count(xtype) as CountOfObjects 
+from sysobjects 
+group by xtype 
+order by xtype 
+-- where xtype = 'U
+
+select 
+	xtype, 
+	count(xtype) as CountOfObjects 
+from sysobjects 
+group by xtype 
+having xtype = 'U'  -- use having instead of where
+
+select 
+	xtype, 
+	count(xtype) as CountOfObjects into t1
+	-- using INTO is not a good practice
+from sysobjects 
+group by xtype 
+having xtype = 'U'
+go
+SELECT * from t1
+select * from sysobjects
+
+SELECT * from
+(SELECT 
+	xtype, 
+	count(xtype) as CountOfObjects 
+from sysobjects 
+group by xtype) g1 where g1.xtype = 'U';
